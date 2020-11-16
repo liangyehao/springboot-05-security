@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>标题1</title>
+</head>
+<link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/static/favicon.ico}"/>
+<body>
+
+<div sec:authorize="isAuthenticated()">
+    <span sec:authentication="name"></span>,你好,您的角色有<span sec:authentication="principal.authorities"></span>
+    <form action="/logout">
+        <input type="submit" value="退出"/>
+    </form>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <h1>游客你好,请<a href="/login">登录</a></h1>
+</div>
+
+<div sec:authorize="hasRole('VIP1')">
+    <hr/>
+    <div>
+        <span>level1</span>
+        <ul>
+            <li><a th:href="@{/level1/11}">页面11</a></li>
+            <li><a th:href="@{/level1/12}">页面12</a></li>
+        </ul>
+    </div>
+</div>
+
+<div sec:authorize="hasRole('VIP2')">
+    <div>
+        <hr/>
+        <span>level2</span>
+        <ul>
+            <li><a th:href="@{/level2/21}">页面21</a></li>
+            <li><a th:href="@{/level2/22}">页面22</a></li>
+        </ul>
+    </div>
+</div>
+
+<div sec:authorize="hasRole('VIP3')">
+    <hr/>
+    <div>
+        <span>level3</span>
+        <ul>
+            <li><a th:href="@{/level3/31}">页面31</a></li>
+            <li><a th:href="@{/level3/32}">页面32</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
