@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>登录lyeh</title>
+	<link rel="stylesheet" href="css/style.css">
+	<!-- For-Mobile-Apps-and-Meta-Tags -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		 
+	<!-- //For-Mobile-Apps-and-Meta-Tags -->
+
+</head>
+
+<body>
+    <h1><a href="https://github.com/liangyehao" title="lyeh">www.lyeh.com</a></h1>
+    <div class="container w3">
+        <h2>请登录</h2>
+		<form th:action="@{/auth/form}" method="post">
+			<div class="username">
+				<span class="username">用户名:</span>
+				<label>
+					<input type="text" name="username" class="name" placeholder="" required="">
+				</label>
+				<div class="clear"></div>
+			</div>
+			<div class="password-agileits">
+				<span class="username">密码:</span>
+				<label>
+					<input type="password" name="password" class="password" placeholder="" required="">
+				</label>
+				<div class="clear"></div>
+			</div>
+			<div class="rem-for-agile">
+				<label>
+					<input type="checkbox" name="remember-me" class="remember">
+				</label>记住我<br>
+				<a href="#">忘记密码</a><br>
+				<div>用户名:guest</div>
+				<div>密码:guest</div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="登录">
+			</div>
+			<div class="clear"></div>
+		</form>
+	</div>
+	<div class="footer-w3l">
+		<p><a href="https://github.com/liangyehao" title="lyeh">lyeh</a></p>
+	</div>
+</body>
+</html>

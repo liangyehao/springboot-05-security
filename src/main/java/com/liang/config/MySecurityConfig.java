@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * @author liangyehao
@@ -16,6 +19,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @EnableWebSecurity
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+//    @Bean
+//    public PersistentTokenRepository persistentTokenRepository() {
+//        return new InMemoryTokenRepositoryImpl();
+//    }
+
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -26,10 +38,19 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level3/**").hasRole("VIP3");
 
         // 开启登录功能
-        http.formLogin();
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/auth/form")
+                .defaultSuccessUrl("/");
+
+        //
+//        http.csrf().disable();
 
         // 开启退出登录功能
-        http.logout().logoutSuccessUrl("/");
+        http.logout().logoutSuccessUrl("/login");
+
+        // 记住我
+//        http.rememberMe().tokenRepository(persistentTokenRepository()).tokenValiditySeconds(3600);
     }
 
     @Override
@@ -41,7 +62,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("lisi").password(passwordEncoder().encode("123456")).roles("VIP1", "VIP2")
                 .and()
-                .withUser("wangwu").password(passwordEncoder().encode("123456")).roles("VIP1", "VIP2", "VIP3");
+                .withUser("wangwu").password(passwordEncoder().encode("123456")).roles("VIP1", "VIP2", "VIP3")
+                .and()
+                .withUser("guest").password(passwordEncoder().encode("guest")).roles("VIP1", "VIP2", "VIP3");
     }
 
     @Bean

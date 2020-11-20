@@ -18,10 +18,16 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @RequestMapping("/level1/{i}")
     public String l1(@PathVariable("i")String i){
         return i;
     }
+
     @RequestMapping("/level2/{i}")
     public String l2(@PathVariable("i")String i){
         return i;
